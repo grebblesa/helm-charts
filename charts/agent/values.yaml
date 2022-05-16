@@ -1,0 +1,27 @@
+replicaCount: 1
+
+image:
+  repository: registry.gitlab.com/grebble/backend/go-mono/grebble-agent
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 80
+  serviceNodePort: 80
+
+
+resources:
+  limits:
+    cpu: 1
+    memory: 1Gi
+  requests:
+    cpu: 10m
+    memory: 10Mi
+
+tolerations: []
+
+affinity: {}
+
+ingress:
+  enabled: false

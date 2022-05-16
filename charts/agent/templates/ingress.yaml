@@ -1,16 +1,16 @@
 ---
 {{- if .Values.ingress.enabled -}}
-{{- $fullName := include "main-node.fullname" . -}}
+{{- $fullName := include "agent.fullname" . -}}
 {{- $ingressPath := .Values.ingress.path -}}
 {{- $ingressHttpsPort := .Values.service.httpsPort -}}
 {{- $ingressHttpPort := .Values.service.httpPort -}}
-apiVersion: {{ .Values.ingress.apiVersion }}
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
-  name: {{ template "main-node.fullname" . }}-ingress
+  name: {{ template "agent.fullname" . }}-ingress
   namespace: {{ .Release.Namespace }}
   labels:
-    app: {{ include "main-node.name" . | quote }}
+    app: {{ include "agent.name" . | quote }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
     release: {{ .Release.Name | quote }}
     heritage: {{ .Release.Service | quote }}
@@ -36,7 +36,7 @@ spec:
         paths:
         - path: "/"
           backend:
-            serviceName: {{ $fullName }}-api
+            serviceName: {{ $fullName }}
             servicePort: 80
   {{- end }}
 {{- end }}
