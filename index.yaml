@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  main-node:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2022-05-16T09:24:36.827130316Z"
+    description: A Helm chart for Kubernetes
+    digest: 4cda052899105e809efdf87fd6d6dda8b1496665896c5119b54c1e74a83b1dbd
+    name: main-node
+    urls:
+    - https://github.com/grebblesa/helm-charts/releases/download/main-node-0.1.0/main-node-0.1.0.tgz
+    version: 0.1.0
+generated: "2022-05-16T09:24:36.541696255Z"
