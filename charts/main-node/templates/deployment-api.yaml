@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "main-node.fullname" . }}-api
+  labels:
+    app.kubernetes.io/name: {{ include "main-node.name" . }}-api
+    helm.sh/chart: {{ include "main-node.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.apiReplicaCount }}
+  strategy:
+    type: {{ .Values.strategy.type }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "main-node.name" . }}-api
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+        linkerd.io/inject: enabled
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: "8002"
+      labels:
+        app.kubernetes.io/name: {{ include "main-node.name" . }}-api
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      {{if (default .Values.podSpec.openToNode false)}}
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      {{ end }}
+      initContainers:
+        - name: migrate
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["./main-node-agent", "migrate"]
+          envFrom:
+            - secretRef:
+                name: {{ include "main-node.fullname" . }}
+      containers:
+        - name: {{ .Chart.Name }}-api
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["./main-node-agent", "start"]
+          envFrom:
+            - secretRef:
+                name: {{ include "main-node.fullname" . }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.pods.httpPort }}
+              protocol: TCP
+            - name: grpc
+              containerPort: {{ .Values.pods.grpcPort }}
+              protocol: TCP
+            - name: agent
+              containerPort: {{ .Values.pods.agentPort }}
+              protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+        - name: {{ .Chart.Name }}-listener
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: [ "./main-node-agent", "listener" ]
+          envFrom:
+            - secretRef:
+                name: {{ include "main-node.fullname" . }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
