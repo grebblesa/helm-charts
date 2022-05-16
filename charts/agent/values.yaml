@@ -1,7 +1,7 @@
 replicaCount: 1
 
 settings:
-  MAIN_NODE_AGENT_ADDRESS: "main-node.grebble-main-node:8080"
+  MAIN_NODE_AGENT_ADDRESS: "main-node-agent.grebble-main-node:8080"
   NSQ_NSQD: "nsq-nsqlookupd.nsq:4161"
   NSQ_PRODUCER_ADDRESS: "nsq-nsqd.nsq:4150"
   NSQ_API_ADDRESS: "http://nsq-nsqd.nsq:4151"
