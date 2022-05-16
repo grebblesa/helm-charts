@@ -16,6 +16,7 @@ spec:
       app.kubernetes.io/name: {{ include "main-node.name" . }}-api
       app.kubernetes.io/instance: {{ .Release.Name }}
   template:
+    serviceAccountName: {{ include "main-node.name" . }}
     metadata:
       annotations:
         linkerd.io/inject: enabled
