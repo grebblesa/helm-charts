@@ -3,6 +3,15 @@ entries:
   agent:
   - apiVersion: v1
     appVersion: "1.0"
+    created: "2022-05-16T10:01:03.786349666Z"
+    description: agent service
+    digest: 2ba42afdf276dc419b0d9e77bd4688db53f40146a12768074c53af394fdee358
+    name: agent
+    urls:
+    - https://github.com/grebblesa/helm-charts/releases/download/agent-0.1.4/agent-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v1
+    appVersion: "1.0"
     created: "2022-05-16T09:46:58.943615578Z"
     description: agent service
     digest: c175aebef48366e4e367e816a1c8683d1f03c5e828c02b93670d186080ea4158
@@ -29,6 +38,15 @@ entries:
     - https://github.com/grebblesa/helm-charts/releases/download/agent-0.1.1/agent-0.1.1.tgz
     version: 0.1.1
   main-node:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2022-05-16T10:01:03.910996783Z"
+    description: main-node service
+    digest: 1de65a88b96812b79ae51f81e12ec1da9c352bec1f5373c70b72501979b41c35
+    name: main-node
+    urls:
+    - https://github.com/grebblesa/helm-charts/releases/download/main-node-0.1.4/main-node-0.1.4.tgz
+    version: 0.1.4
   - apiVersion: v1
     appVersion: "1.0"
     created: "2022-05-16T09:46:59.136227081Z"
