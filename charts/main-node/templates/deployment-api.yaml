@@ -34,7 +34,7 @@ spec:
         - name: migrate
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["./main-node-agent", "migrate"]
+          command: ["./main-node", "migrate"]
           envFrom:
             - secretRef:
                 name: {{ include "main-node.fullname" . }}
@@ -42,7 +42,7 @@ spec:
         - name: {{ .Chart.Name }}-api
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["./main-node-agent", "start"]
+          command: ["./main-node", "start"]
           envFrom:
             - secretRef:
                 name: {{ include "main-node.fullname" . }}
@@ -61,7 +61,7 @@ spec:
         - name: {{ .Chart.Name }}-listener
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: [ "./main-node-agent", "listener" ]
+          command: [ "./main-node", "listener" ]
           envFrom:
             - secretRef:
                 name: {{ include "main-node.fullname" . }}

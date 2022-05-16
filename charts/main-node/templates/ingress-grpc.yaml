@@ -37,6 +37,6 @@ spec:
           - path: {{ $ingressPath }}
             backend:
               serviceName: {{ $fullName }}-grpc
-              servicePort: {{ .Values.service.grpcPort }}
+              servicePort: 8001
   {{- end }}
 {{- end }}

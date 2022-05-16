@@ -1,6 +1,36 @@
 apiReplicaCount: 1
 
 settings:
+  SERVER_RUN_MODE: "debug"
+  OIDC_URL: "https://user.grebble.io"
+  OIDC_CLIENT_ID: "flow"
+  OIDC_REALM: "grebble"
+  OIDC_CLIENT_SECRET: ""
+  SENTRY_DSN: ""
+  METRICS_URL: "http://prometheus-server.monitoring"
+
+  OIDC_BASE_REDIRECT_DOMAIN: "https://company.example"
+  API_SERVER_DOMAIN: "company.example"
+  SERVICE_NAME: "testing"
+
+  DATABASE_DSN: "host=localhost user=postgres password=postgres dbname=main-node port=5432 sslmode=require"
+
+  NSQ_NSQD: "nsq-nsqlookupd.nsq:4161"
+  NSQ_PRODUCER_ADDRESS: "nsq-nsqd.nsq:4150"
+  NSQ_API_ADDRESS: "http://nsq-nsqd.nsq:4151"
+
+  NOTIFICATION_SLACK_ENABLE: "false"
+  NOTIFICATION_SLACK_CREDENTIALS: ""
+
+#   SE settings
+  S3_ACCESS_KEY: ""
+  S3_SECRET_KEY: ""
+  S3_REGION: ""
+  S3_ENDPOINT: ""
+  S3_DISABLE_SSL: "false"
+#   Lambda code s3 location
+  LAMBDA_CODE_BUCKET: ""
+  LAMBDA_CODE_PREFIX: ""
 
 
 image:
