@@ -1,7 +1,6 @@
 apiReplicaCount: 1
 
 settings:
-  SERVER_RUN_MODE: "debug"
   OIDC_URL: "https://user.grebble.io"
   OIDC_CLIENT_ID: "flow"
   OIDC_REALM: "grebble"
