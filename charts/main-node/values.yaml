@@ -36,6 +36,8 @@ image:
   repository: registry.gitlab.com/grebble/backend/go-mono/grebble-main-node
   tag: latest
   pullPolicy: Always
+  imagePullSecrets:
+    - name: regcred
 
 service:
   type: ClusterIP

@@ -2,6 +2,8 @@
 {{- if .Values.ingressGrpc.enabled -}}
 {{- $fullName := include "main-node.fullname" . -}}
 {{- $ingressPath := .Values.ingressGrpc.path -}}
+{{- $ingressPathType := .Values.ingressGrpc.pathType -}}
+{{- $port := .Values.ingressGrpc.port -}}
 {{- $ingressHttpsPort := .Values.service.httpsPort -}}
 {{- $ingressHttpPort := .Values.service.httpPort -}}
 apiVersion: {{.Values.ingress.apiVersion}}
@@ -30,6 +32,21 @@ spec:
   {{- end }}
 {{- end }}
   rules:
+  {{- if eq .Values.ingress.apiVersion "networking.k8s.io/v1" }}
+  {{- range .Values.ingress.hosts }}
+    - host: {{ . }}
+      http:
+        paths:
+          - path: {{ $ingressPath }}
+            pathType: {{ $ingressPathType }}
+            backend:
+              service:
+                name: {{ $fullName }}-api
+                port:
+                  number: {{ $port }}
+  {{- end }}
+  {{- end }}
+  {{- else }}
   {{- range .Values.ingressGrpc.hosts }}
     - host: {{ . }}
       http:
