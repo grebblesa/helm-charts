@@ -39,9 +39,9 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "main-node.fullname" . }}
-            {{- if .Value.envFromSecret }}
+            {{- if .Values.envFromSecret }}
             - secretRef:
-                name: {{ .Value.envFromSecret }}
+                name: {{ .Values.envFromSecret }}
             {{- end }}
       containers:
         - name: {{ .Chart.Name }}-api
@@ -51,9 +51,9 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "main-node.fullname" . }}
-            {{- if .Value.envFromSecret }}
+            {{- if .Values.envFromSecret }}
             - secretRef:
-                name: {{ .Value.envFromSecret }}
+                name: {{ .Values.envFromSecret }}
             {{- end }}
           ports:
             - name: http
@@ -74,9 +74,9 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "main-node.fullname" . }}
-            {{- if .Value.envFromSecret }}
+            {{- if .Values.envFromSecret }}
             - secretRef:
-                name: {{ .Value.envFromSecret }}
+                name: {{ .Values.envFromSecret }}
             {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
