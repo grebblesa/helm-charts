@@ -35,6 +35,10 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ include "agent.fullname" . }}
+            {{- if .Value.envFromSecret }}
+            - secretRef:
+                name: {{ .Value.envFromSecret }}
+            {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

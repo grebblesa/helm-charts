@@ -1,5 +1,8 @@
 apiReplicaCount: 1
 
+# For extra env vars
+#envFromSecret:
+
 settings:
   OIDC_URL: "https://user.grebble.io"
   OIDC_CLIENT_ID: "flow"
