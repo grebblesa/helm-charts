@@ -25,6 +25,11 @@ spec:
       labels:
         app.kubernetes.io/name: {{ include "main-node.name" . }}-api
         app.kubernetes.io/instance: {{ .Release.Name }}
+        {{- if .Values.metadata.labels }}
+        {{- range $key, $val := .Values.metadata.labels }}
+        {{ $key }}: {{ $val | quote }}
+        {{- end }}
+        {{- end }}
     spec:
       serviceAccountName: {{ include "main-node.name" . }}
       {{if (default .Values.podSpec.openToNode false)}}

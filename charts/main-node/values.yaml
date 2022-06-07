@@ -3,6 +3,11 @@ apiReplicaCount: 1
 # For extra env vars
 #envFromSecret:
 
+# For pods extra labels
+metadata:
+  labels:
+    # example-key: example-value
+
 settings:
   OIDC_URL: "https://user.grebble.io"
   OIDC_CLIENT_ID: "flow"
