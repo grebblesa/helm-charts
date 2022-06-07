@@ -1,5 +1,13 @@
 apiReplicaCount: 1
 
+# For extra env vars
+#envFromSecret:
+
+# For pods extra labels
+metadata:
+  labels:
+    # example-key: example-value
+
 settings:
   OIDC_URL: "https://user.grebble.io"
   OIDC_CLIENT_ID: "flow"
@@ -36,6 +44,8 @@ image:
   repository: registry.gitlab.com/grebble/backend/go-mono/grebble-main-node
   tag: latest
   pullPolicy: Always
+  imagePullSecrets:
+    - name: regcred
 
 service:
   type: ClusterIP

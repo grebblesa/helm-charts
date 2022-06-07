@@ -1,5 +1,13 @@
 replicaCount: 1
 
+# For extra env vars
+#envFromSecret:
+
+# For pods extra labels
+metadata:
+  labels:
+    # example-key: example-value
+
 settings:
   MAIN_NODE_AGENT_ADDRESS: "main-node-agent.grebble-main-node:8080"
   NSQ_NSQD: "nsq-nsqlookupd.nsq:4161"
@@ -15,6 +23,8 @@ service:
   type: ClusterIP
   port: 80
   serviceNodePort: 80
+  imagePullSecrets:
+    - name: regcred
 
 
 resources:

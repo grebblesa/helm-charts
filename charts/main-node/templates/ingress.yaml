@@ -4,6 +4,9 @@
 {{- $ingressPath := .Values.ingress.path -}}
 {{- $ingressHttpsPort := .Values.service.httpsPort -}}
 {{- $ingressHttpPort := .Values.service.httpPort -}}
+{{- $path := .Values.ingress.path -}}
+{{- $pathType := .Values.ingress.pathType -}}
+{{- $port := .Values.ingress.port -}}
 apiVersion: {{ .Values.ingress.apiVersion }}
 kind: Ingress
 metadata:
@@ -30,6 +33,21 @@ spec:
   {{- end }}
 {{- end }}
   rules:
+  {{- if eq .Values.ingress.apiVersion "networking.k8s.io/v1" }}
+  {{- range .Values.ingress.hosts }}
+    - host: {{ . }}
+      http:
+        paths:
+          - path: {{ $path }}
+            pathType: {{ $pathType }}
+            backend:
+              service:
+                name: {{ $fullName }}-api
+                port:
+                  number: {{ $port }}
+  {{- end }}
+  {{- end }}
+  {{- else }}
   {{- range .Values.ingress.hosts }}
     - host: {{ . }}
       http:
@@ -37,6 +55,6 @@ spec:
         - path: "/"
           backend:
             serviceName: {{ $fullName }}-api
-            servicePort: 80
+            servicePort: {{ $ingressHttpPort }}
   {{- end }}
 {{- end }}
