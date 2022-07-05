@@ -6,7 +6,7 @@
 {{- $port := .Values.ingressGrpc.port -}}
 {{- $ingressHttpsPort := .Values.service.httpsPort -}}
 {{- $ingressHttpPort := .Values.service.httpPort -}}
-apiVersion: {{.Values.ingress.apiVersion}}
+apiVersion: {{.Values.ingressGrpc.apiVersion}}
 kind: Ingress
 metadata:
   name: {{ template "main-node.fullname" . }}-ingress-grpc
@@ -32,8 +32,8 @@ spec:
   {{- end }}
 {{- end }}
   rules:
-  {{- if eq .Values.ingress.apiVersion "networking.k8s.io/v1" }}
-  {{- range .Values.ingress.hosts }}
+  {{- if eq .Values.ingressGrpc.apiVersion "networking.k8s.io/v1" }}
+  {{- range .Values.ingressGrpc.hosts }}
     - host: {{ . }}
       http:
         paths:
@@ -41,7 +41,7 @@ spec:
             pathType: {{ $ingressPathType }}
             backend:
               service:
-                name: {{ $fullName }}-api
+                name: {{ $fullName }}-grpc
                 port:
                   number: {{ $port }}
   {{- end }}
